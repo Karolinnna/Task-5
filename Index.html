@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="result"></div>
+
+    <script>
+        const API = 'https://randomfox.ca/floof/';
+        const result = document.getElementById('result');
+
+        async function getFox() {
+            try {
+                const res = await fetch(API); //fetch == promise, await зупиняє поки не виконається проміз
+                if (!res.ok) {
+                    throw new Error(`HTTP Error: ${res.status}`);
+                }
+                const data = await res.json();
+                result.innerHTML = `<img src="${data.image}" alt="What does the fox say?" style="max-width:300px; display:block;">`;
+            } catch (err) {
+                console.error("Error:", err);
+                result.innerHTML = `<p style="color:red;">Something went wrong ${err.message}</p>`;
+            }
+        }
+
+        getFox();
+    </script>
+
+</body>
+</html>
